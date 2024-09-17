@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | E-commerce product page</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { --color1: hsl(26, 100%, 55%); --color2: hsl(25, 100%, 94%); --color3: hsl(220, 13%, 13%); --color4: hsl(219, 9%, 45%); --color5: hsl(220, 14%, 75%); --color6: hsl(223, 64%, 98%); --color7: hsl(0, 0%, 100%); --color8: hsl(0, 0%, 0%); }
+
+
+    /* Utilities */
+    h2 { font-size: 1.8rem; }
+    h4{ background-color: var(--color8); color: var(--color2); font-size: .6rem; padding: .1rem .3rem; border-radius: .2rem; }
+    h5 { text-decoration: line-through; color: var(--color4); }
+    a { text-decoration: none; color: var(--color4); }
+    a:hover { color: var(--color8); }
+    li { list-style: none; }
+    hr { opacity: .4; }
+    img { cursor: pointer; }
+    span { color: var(--color4); }
+    #Total { color: var(--color8); font-weight: 700; }
+
+    /* Container */
+    #Container { width: fit-content; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; padding: 1rem; }
+
+    /* Header */
+    header { display: flex; justify-content: space-between; align-items: center; }
+
+    /* Navigation */
+    #nav { display: flex; gap: 3rem; }
+    #Nav-select { display: flex; gap: 1.5rem; }
+
+    /* Cart */
+    #Cart { display: flex; align-items: center; gap: 1rem; }
+    #Avatar { width: 2rem; }
+    #Avatar:hover { border: solid var(--color1); border-radius: 50%; cursor: pointer; }
+
+
+    /* B-container */
+    #B-container { display: flex;  align-items: center; padding: 2rem; gap: 5rem; }
+
+    /* Left */
+    #Left { display: flex; flex-direction: column; gap: 1rem; }
+    #Left-two { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; column-gap: 1rem;}
+    #None { width: 17rem;  border-radius: .5rem; }
+    .thumbdail { width: 3.5rem; border-radius: .5rem; cursor: pointer; }
+
+    /* Right */
+    #Right { display: flex; flex-direction: column; gap: 1.2rem; width: 19rem; }
+    #Right-1 { display: flex; flex-direction: column; gap: .5rem; }
+    #Right p { font-size: .9rem; color: var(--color4); }
+
+
+    /* Price */
+    #Price { display: flex; flex-direction: column; gap: .5rem; }
+    /* Discount */
+    #Discount { display: flex; gap: .5rem; align-items: center; }
+
+    /* Add-to-cart */
+    #Add-to-cart { display: flex;  align-items: center; gap: 1rem; }
+    /* increase */
+    #increase { display: flex; gap: 1.5rem; background-color: var(--color6); padding: .5rem; border-radius: .3rem; }
+    #increase h5 { text-decoration: none; color: var(--color3); }
+    #increase img { width: .5rem; }
+
+    /* Main-add */
+    #Main-add { background-color: var(--color1); padding: .5rem 3rem; display: flex; align-items: center; border-radius: .3rem; gap: .5rem; cursor: pointer;}
+    #Main-add a { font-size: .8rem; color: var(--color8); }
+    #Main-add img { width: 1rem; }
+
+    /* Display nones */
+    #Menu { display: none; }
+
+    /* Ham */
+    #Nav-select-2 { display: none; z-index: 3;}
+
+    /* Cartshow */
+    #Cartshow { display: none; position: absolute; top: 4rem; right: 20rem; background-color: var(--color7); padding: 1rem; z-index: 2; width: 17rem; height: fit-content; border-radius: .3rem; flex-direction: column; gap: 1rem; box-shadow: -1px 15px 15px -1px rgb(60, 60, 60); }
+    #p { display: flex; align-self: center; font-size: .9rem; padding-top: 2.5rem; }
+
+    #Cartshow-a { display: none; padding: .7rem; text-align: center; background-color: orangered; color: var(--color8); width: 100%; border-radius: .5rem; }
+    #create  { width: 2.5rem; border-radius: .2rem; }
+    #Cartshow-2 { display: flex; flex-direction: column; gap: 1rem; }
+    #Show:hover ~ #Cartshow { display: flex; }
+
+    /* Cart-inner */
+    #Cart-inner { display: none; justify-content: space-between; align-items: center; }
+    #Cart-inner span { font-size: .9rem; }
+    #delete { width: .8rem; }
+    #Cart-inner-2 { display: flex; flex-direction: column; gap: .2rem; }
+
+    /* Swipe */
+    #Swipe { display: none; position: absolute; z-index: 1; top: 15rem; justify-content: space-between; width: 100%; padding: 0 1rem; }
+    #previous, #next { background-color: var(--color7); padding: 1rem 1.2rem; display: flex; border-radius: 50%; }
+
+    @media screen and (max-width:500px) {
+        #Container { display: flex; padding: 0; gap: 1rem; padding-bottom: 5rem; padding-top: 1rem; }
+        hr { display: none; }
+        header { padding: .2rem 1.5rem; }
+        #Nav-select { display: none; }
+        #B-container { display: flex;  flex-direction: column; padding: 0; gap: 0; }
+        .thumbdail { display: none; }
+        #None { width: 100vw; height: 57vh; border-radius: 0; }
+        #Right { padding: 0 1rem; }
+        #Right p { font-size: 1.1rem; }
+        #Right-1 { gap: 1rem; }
+        #Price { display: flex; flex-direction: row; justify-content: space-between; align-items: center; font-size: 1.6rem; }
+        h4{ font-size: .9rem; } 
+        #Add-to-cart { display: flex; flex-direction: column; }
+        #increase { width: 100%; justify-content: space-between; padding: 1rem; }
+        #Main-add { width: 100%; padding: 1rem; justify-content: center; }
+        #Main-add a { font-size: 1.3rem; }
+        #Main-add img { width: 1.5rem; }
+
+        #Menu-1 { display: flex; align-items: center; gap: 1rem; }
+        #Menu { display: flex; }
+
+        #Nav-select-2 { background-color: white; position: fixed; height: 100vh; left: 0; top: 0; padding-top: .8rem; padding-right: 50%; padding-left: 1.5rem; }
+        li { padding-bottom: 1.5rem;  }
+        li a { color: var(--color8); }
+        #Close { padding-bottom: 2rem; padding-top: 1rem; }
+
+        #increase h5 { font-size: 1.5rem; }
+        #increase img { width: 1rem; }
+
+        #Cartshow { top: 5rem; right: .5rem; width: 95%; height: fit-content; box-shadow: 0px 0px 0px 0px; }
+
+        #Swipe { display: flex; }
+
+        #p { font-size: 1rem; }
+
+    }
+
+  </style>
+</head>
+<body>
+    <div id="Container">
+
+        <header>
+            <div id="nav">
+                
+                
+                    <div id="Nav-select-2">
+                        <div id="Close">
+                            <img id="close" src="images/icon-close.svg" alt="" onclick="Closemenu()">
+                        </div>
+                        <li><a href="">Collections</a></li>
+                        <li><a href="">Men</a></li>
+                        <li><a href="">Women</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                    </div>
+                
+                <div id="Menu-1">
+                    <img id="Menu" src="images/icon-menu.svg" alt="" onclick="Openmenu()">
+                    <img id="Logo" src="images/logo.svg" alt="">
+                </div>
+                <div id="Nav-select">
+                    <li><a href="">Collections</a></li>
+                    <li><a href="">Men</a></li>
+                    <li><a href="">Women</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                </div>
+            </div>
+
+            <div id="Cart">
+                <img id="Show" src="images/icon-cart.svg" alt="">
+                <img id="Avatar" src="images/image-avatar.png" alt="">
+
+                <div id="Cartshow">
+
+                    <div id="Cartshow-2">
+                        <span>Cart</span>
+                        <hr>
+                    </div>
+                    <div id="p">
+                        <p>Your cart is empty.</p>
+                    </div>
+
+                    <div id="Cart-inner">
+                        <div>
+                            <img id="create" src="images/image-product-1-thumbnail.jpg" alt="">
+                        </div>
+                        <div id="Cart-inner-2">
+                            <span>Fall Limited Edition Sneakers</span>
+                            <div id="Cart-inner-3">
+                                <span>$125.00 <span id="count-1"></span> </span>
+                                <span id="Total"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <img id="delete" src="images/icon-delete.svg" alt="">
+                        </div>
+
+                    </div>
+                    <a href="" id="Cartshow-a" >Checkout</a>
+                </div>
+
+            </div>
+
+        </header>
+        <hr>
+
+        <div id="B-container">
+            <div id="Left">
+
+                <div id="Left-one">
+                    <div id="Swipe">
+                        <div id="previous">
+                            <img src="images/icon-previous.svg" alt="">
+                        </div>
+                        <div id="next">
+                            <img src="images/icon-next.svg" alt="">
+                        </div>
+                    </div>
+                    <img id="None" src="images/image-product-1.jpg" alt="">
+                </div>
+
+                <div id="Left-two">
+                    <img id="Thumbdail1" class="thumbdail" src="images/image-product-1.jpg" alt="">
+                    
+                    <img id="Thumbdail2" class="thumbdail" src="images/image-product-2.jpg" alt="">
+    
+                    <img id="Thumbdail3" class="thumbdail" src="images/image-product-3.jpg" alt="">
+    
+                    <img id="Thumbdail4" class="thumbdail" src="images/image-product-4.jpg" alt="">
+                </div>
+
+            </div>
+
+            <div id="Right">
+                <div id="Right-1">
+                    <p>SNEAKER COMPANY</p>
+                    <h2>Fall Limited Edition Sneakers</h2>
+                </div>
+                <p>  These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.</p>
+
+                <div id="Price">
+                    <div id="Discount">
+                        <h3>$125.00</h3>
+                        <h4>50%</h4>
+                    </div>
+                    <div id="Original">
+                        <h5>250.00</h5>
+                    </div>
+                </div>
+
+                <div id="Add-to-cart">
+                    <div id="increase">
+                        <div>
+                            <img src="images/icon-minus.svg" alt="" id="Increment" onclick="decrease()" >
+                        </div>
+                        <div>
+                            <h5 id="count">0</h5>
+                        </div>
+                        <div>
+                            <img src="images/icon-plus.svg" alt="" id="Decrement" onclick="increase()">
+                        </div>
+                    </div>
+                    <div id="Main-add">
+                        <img src="images/icon-cart.svg" alt="">
+                        <a href="">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        function Openmenu(){
+            document.getElementById('Nav-select-2').style.display = "block";
+        }
+        function Closemenu(){
+            document.getElementById('Nav-select-2').style.display ="none";
+        }  
+
+        const thumbnails = document.querySelectorAll('.thumbdail');
+        const None = document.getElementById('None');
+
+        thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+        thumbnails.forEach(thumb => {
+            thumb.style.border = '';
+            thumb.style.opacity = '';
+        });
+        this.style.border = '2px solid red';
+        this.style.opacity = '0.44';
+        None.src = this.src;
+         });
+       });
+
+
+       //    Count
+       let count = 0;
+       function increase() {
+           if(count < 5){
+            document.getElementById('count').innerHTML = ++count;
+            document.getElementById('count-1').innerHTML = "x " + count;
+            Total = count * 125;
+            document.getElementById('Total').innerHTML = "$" + Total.toFixed(2);
+            document.getElementById('p').style.display = "none";
+            document.getElementById('Cart-inner').style.display = "flex";
+            document.getElementById('Cartshow-a').style.display = "block";
+       }
+        }
+
+       function decrease() {
+        if(count > 0){
+           document.getElementById('count').innerHTML = --count;
+       }
+        }
+
+
+        let Prev = 1;
+        
+        document.getElementById('next').addEventListener('click', function(){
+            ++Prev;
+            if(Prev === 2){
+                document.getElementById('None').setAttribute('src', 'images/image-product-2.jpg')
+            }
+            if(Prev === 3){
+                document.getElementById('None').setAttribute('src', 'images/image-product-3.jpg')
+            }
+            if(Prev === 4){
+                document.getElementById('None').setAttribute('src', 'images/image-product-4.jpg')
+            }
+        });
+
+        document.getElementById('previous').addEventListener('click', function(){
+            --Prev;
+            if(Prev === 1){
+                document.getElementById('None').setAttribute('src', 'images/image-product-1.jpg')
+            }
+            if(Prev === 2){
+                document.getElementById('None').setAttribute('src', 'images/image-product-2.jpg')
+            }
+            if(Prev === 3){
+                document.getElementById('None').setAttribute('src', 'images/image-product-3.jpg')
+            }
+        });
+    
+
+
+
+        </script>
+</body>
+</html>
